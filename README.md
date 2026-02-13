@@ -30,10 +30,55 @@ El objetivo es extraer, limpiar y transformar un dataset CSV, y luego cargarlo e
 
 ---
 
-## 💻 Cómo ejecutar
 
-1. Clona el repositorio:  
+# Mini Data Warehouse: Student Performance Factors
 
-```bash
-git clone <URL-del-repo>
-cd student_etl
+## 🔹 Descripción del proyecto
+
+Este proyecto es un **mini Data Warehouse** construido a partir de un dataset de factores que influyen en el rendimiento de estudiantes.  
+El objetivo es **demostrar un pipeline completo de Data Engineering**, incluyendo:
+
+1. **ETL básico**: carga, limpieza y transformación del CSV.  
+2. **Dimensiones**: creación de tablas de dimensiones (`DimStudent`, `DimSchool`, `DimActivity`).  
+3. **Fact Table**: tabla de hechos (`FactPerformance`) con métricas como `Hours_Studied`, `Attendance`, `Study_Effort` y `Exam_Score`.  
+4. **Almacenamiento en SQLite** para consultas SQL.
+
+---
+
+## 🔹 Estructura de archivos
+
+pipeline/
+│
+├── data/
+│ └── StudentPerformanceFactors.csv
+│
+├── pipeline_sencillo.py
+└── README.md
+
+
+
+- `data/StudentPerformanceFactors.csv`: dataset original.  
+- `pipeline_sencillo.py`: script que crea el mini Data Warehouse.  
+- `students_dw.db`: base de datos SQLite generada al ejecutar el script.
+
+---
+
+## 🔹 Star Schema
+
+**Dimensiones:**
+
+- **DimStudent**: Género, Educación de los padres, Ingresos familiares  
+- **DimSchool**: Tipo de escuela, Calidad del profesor  
+- **DimActivity**: Actividades extracurriculares y físicas  
+
+**Fact Table:**
+
+- **FactPerformance**: Horas estudiadas, Asistencia, Esfuerzo (`Study_Effort`), Nota de examen  
+- Claves foráneas: `student_id`, `school_id`, `activity_id`  
+
+
+    DimStudent      DimSchool     DimActivity
+      |                |              |
+      +----------------+--------------+
+                       |
+                 FactPerformance
